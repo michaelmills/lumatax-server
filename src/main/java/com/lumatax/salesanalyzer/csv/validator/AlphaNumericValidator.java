@@ -1,21 +1,22 @@
-package com.lumatax.salesanalyzer.service.validator;
+package com.lumatax.salesanalyzer.csv.validator;
 
-import com.lumatax.salesanalyzer.model.State;
 import com.opencsv.bean.BeanField;
 import com.opencsv.bean.validators.StringValidator;
 import com.opencsv.exceptions.CsvValidationException;
+import org.apache.commons.lang3.StringUtils;
 
-public class StateValidator implements StringValidator {
+public class AlphaNumericValidator implements StringValidator {
+
 	@Override
 	public boolean isValid(String s) {
-		return State.isAbbreviationValid(s);
+		return StringUtils.isAlphanumeric(s);
 	}
 
 	@Override
 	public void validate(String s, BeanField beanField) throws CsvValidationException {
-		if (!isValid(s)) {
+		if (!this.isValid(s)) {
 			throw new CsvValidationException(
-				String.format("State abbreviation not valid: %s", s));
+				String.format("Field %s value \"%s\" is not alphanumeric", beanField.getField().getName(), s));
 		}
 	}
 

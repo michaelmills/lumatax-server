@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -15,9 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ValidTransactionsSummary {
-	private int numberOfRows;
-	private Date startDate;
-	private Date endDate;
+	private int numberOfRows = 0;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private BigDecimal totalSales = new BigDecimal(0);
 	private BigDecimal totalTax = new BigDecimal(0);
 
@@ -27,5 +27,21 @@ public class ValidTransactionsSummary {
 
 	public void addTax(BigDecimal bigDecimal) {
 		totalTax = totalTax.add(bigDecimal);
+	}
+
+	public void addDate(LocalDate date) {
+		if (startDate == null) {
+			startDate = date;
+		} else if (startDate.compareTo(date) < 0) {
+			startDate = date;
+		}
+
+		if (endDate == null) {
+			endDate = date;
+		} else if (endDate.compareTo(date) > 0) {
+			endDate = date;
+		}
+
+
 	}
 }

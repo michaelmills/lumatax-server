@@ -10,15 +10,15 @@
     </appender>
 
     <!-- Send logs to both console and file audit -->
-    <logger name="com.lumatax.salesanalyzer" level="info" additivity="false">
+    <logger name="com.lumatax.salesanalyzer" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="com.springframework" level="info" additivity="false">
+    <logger name="com.springframework" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="org.hibernate.SQL" level="info" additivity="false">
+    <logger name="org.hibernate.SQL" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 

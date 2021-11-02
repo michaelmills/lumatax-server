@@ -12,5 +12,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InvalidTransactionsSummary {
-	private int numberOfRows;
+	private int numberOfRows = 0;
 }

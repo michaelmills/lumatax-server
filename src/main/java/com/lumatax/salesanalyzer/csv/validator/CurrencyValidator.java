@@ -1,4 +1,4 @@
-package com.lumatax.salesanalyzer.service.validator;
+package com.lumatax.salesanalyzer.csv.validator;
 
 import com.opencsv.bean.BeanField;
 import com.opencsv.bean.validators.StringValidator;

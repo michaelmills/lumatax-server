@@ -40,11 +40,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.12.0</version>
@@ -122,34 +117,6 @@
 					<tag>${project.version}</tag>
 				</configuration>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.openapitools</groupId>-->
-<!--				<artifactId>openapi-generator-maven-plugin</artifactId>-->
-<!--				&lt;!&ndash; RELEASE_VERSION &ndash;&gt;-->
-<!--				<version>5.3.0</version>-->
-<!--				&lt;!&ndash; /RELEASE_VERSION &ndash;&gt;-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>generate</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>-->
-<!--							<generatorName>spring</generatorName>-->
-<!--							<configOptions>-->
-<!--								<sourceFolder>src/gen/java/main</sourceFolder>-->
-<!--								<additionalModelTypeAnnotations>-->
-<!--									@lombok.Builder-->
-<!--									@lombok.NoArgsConstructor-->
-<!--									@lombok.AllArgsConstructor-->
-<!--									@lombok.ToString-->
-<!--								</additionalModelTypeAnnotations>-->
-<!--								<reactive>true</reactive>-->
-<!--							</configOptions>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 

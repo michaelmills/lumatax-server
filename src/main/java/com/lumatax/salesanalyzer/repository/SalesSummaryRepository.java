@@ -1,3 +1,6 @@
 package com.lumatax.salesanalyzer.repository;
 
-public class SalesSummaryRepository {}
+import com.lumatax.salesanalyzer.model.SalesTransactionsSummary;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SalesSummaryRepository extends JpaRepository<SalesTransactionsSummary, Integer> {}

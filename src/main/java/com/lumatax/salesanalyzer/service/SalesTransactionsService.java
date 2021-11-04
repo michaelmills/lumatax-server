@@ -1,23 +1,20 @@
 package com.lumatax.salesanalyzer.service;
 
+import com.lumatax.salesanalyzer.csv.CsvFileParser;
 import com.lumatax.salesanalyzer.exception.SalesTransactionsException;
 import com.lumatax.salesanalyzer.model.CsvParseResult;
 import com.lumatax.salesanalyzer.model.InvalidTransactionsSummary;
 import com.lumatax.salesanalyzer.model.SaleTransaction;
 import com.lumatax.salesanalyzer.model.SalesTransactionsSummary;
 import com.lumatax.salesanalyzer.model.ValidTransactionsSummary;
+import com.lumatax.salesanalyzer.repository.SalesSummaryRepository;
 import com.lumatax.salesanalyzer.repository.SalesTransactionsRepository;
-import com.lumatax.salesanalyzer.csv.CsvFileParser;
 import com.opencsv.exceptions.CsvException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +29,9 @@ public class SalesTransactionsService {
 	@Autowired
 	private SalesTransactionsRepository salesTransactionsRepository;
 
+	@Autowired
+	private SalesSummaryRepository salesSummaryRepository;
+
 	/**
 	 * Parse csv file and process results
 	 * @param file - csv file
@@ -43,11 +43,9 @@ public class SalesTransactionsService {
 			log.info("Process file: {}", file.getOriginalFilename());
 
 			// parse csv file
-			BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
-
-			CsvParseResult<SaleTransaction> csvParseResult = csvFileParser.parse(fileReader, SaleTransaction.class);
+			CsvParseResult<SaleTransaction> csvParseResult = csvFileParser.parse(file, SaleTransaction.class);
 			List<SaleTransaction> validResults = csvParseResult.getValidResults();
-			List<CsvException> csvExceptions = csvParseResult.getInvalidExceptions();
+			List<? extends CsvException> csvExceptions = csvParseResult.getInvalidExceptions();
 
 			// process csv results
 			ValidTransactionsSummary validTransactionsSummary = processValidTransactions(validResults);
@@ -59,10 +57,12 @@ public class SalesTransactionsService {
 			summary.setValidTransactionsSummary(validTransactionsSummary);
 			summary.setInvalidTransactionsSummary(invalidTransactionsSummary);
 
+			salesSummaryRepository.save(summary);
+
 			log.info("File processed successfully: {}", file.getOriginalFilename());
 
 			return summary;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new SalesTransactionsException(e);
 		}
 	}
@@ -83,7 +83,7 @@ public class SalesTransactionsService {
 		return validTransactionsSummary;
 	}
 
-	private InvalidTransactionsSummary processInvalidTransactions(List<CsvException> exceptions) {
+	private InvalidTransactionsSummary processInvalidTransactions(List<? extends CsvException> exceptions) {
 		InvalidTransactionsSummary invalidTransactionsSummary = new InvalidTransactionsSummary();
 		Set<Long> invalidRows = new HashSet<>();
 

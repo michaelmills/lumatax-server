@@ -1,2 +1,6 @@
 server:
   port: ${SERVER_PORT}
+
+security:
+  cors:
+    allowedOrigins: ${ALLOWED_ORIGINS}

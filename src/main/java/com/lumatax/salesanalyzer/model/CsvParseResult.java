@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 public class CsvParseResult<T extends CsvModel> {
 	private List<T> validResults;
-	private List<CsvException> invalidExceptions;
+	private List<? extends CsvException> invalidExceptions;
 }

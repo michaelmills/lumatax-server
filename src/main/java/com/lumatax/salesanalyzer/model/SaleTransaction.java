@@ -1,5 +1,6 @@
 package com.lumatax.salesanalyzer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lumatax.salesanalyzer.csv.processor.MoneyProcessor;
 import com.lumatax.salesanalyzer.csv.validator.AlphaNumericValidator;
 import com.lumatax.salesanalyzer.csv.validator.StateValidator;

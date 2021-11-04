@@ -13,6 +13,9 @@ Spring Boot server for LumaTax take home assessment.
     * Docker
 
 ---
+**Disclaimer**  
+*The parent Lumatax project will contain both the frontend and server: https://github.com/michaelmills/lumatax*  
+*No need to clone this repo*  
 
 ## Build Spring Boot server
 1. Run: mvn clean install  
